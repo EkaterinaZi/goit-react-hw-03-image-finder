@@ -12,7 +12,7 @@ handleNameChange = e => {
 handleNameSubmit = e => {
     e.preventDefault();
     if(this.state.input.trim() === ''){
-        alert('vvedite dannye')
+        alert('Enter data')
         return
     }
     this.props.input(this.state.input);
@@ -27,7 +27,7 @@ render() {
 </SearchFormButton>
 <input onChange={this.handleNameChange}
 value={this.state.input}
-
+name="input"
       type="text"
       autoComplete="off"
       autoFocus

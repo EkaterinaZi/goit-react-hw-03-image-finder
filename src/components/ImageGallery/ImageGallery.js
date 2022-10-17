@@ -7,25 +7,29 @@ import Button from 'components/Button/Button'
 
 class ImageGallery extends React.Component{
     state = {
-        gallery: {},
+        gallery: [],
         page: 1,
         loading: false,
         error: null,
-        input: this.props.input,
+        
     }
 
    
 componentDidMount(){
+    if(!this.props.input){
+        return
+    }
     this.load()
     }
 
 componentDidUpdate(prevProps, prevState){
-    if (this.state.page > prevState) {
-        this.load(this.state.input, this.state.page);
+    if (this.state.page > prevState.page) {
+        this.load(this.props.input, this.state.page);
         return;
       }
       if (prevProps.input !== this.props.input && this.state.page === prevState.page) {
         this.load(this.props.input, 1);
+        console.log('hghgh')
         this.setState({ page: 1 });
         return;
       }
@@ -36,36 +40,28 @@ load= () => {
      fetchApi(this.props.input, this.state.page)
     .then(({data}) => {
         this.setState(() => 
-        {return { gallery: data}})})
+        {return { gallery: [...this.state.gallery, ...data.hits]}})})
     .catch(error => {this.setState({error})})
     .finally(() => this.setState({loading: false}));
 }
+
 loadMore = () => {
-    this.setState(({page}) => {
-        return {
-            page: page + 1
-        }
-    })
+    this.setState(prevState => ({page: prevState.page + 1}))
 }
 
 render() {
-    //const isImageGallery = Boolean(this.state.gallery.length)
-    const loadMore = this;
+    const isImageGallery = Boolean(this.state.gallery.length)
+   // const loadMore = this;
 return (  
     <>
     {this.state.loading && <Loader/>}
     {this.state.error && <p>Try again!</p>}
-    { <ImageGalleryItem gallery={this.state.gallery}></ImageGalleryItem>}
-    {<Button onClick={loadMore}></Button>}
-    { console.log(this.state.gallery.length)}
+    {isImageGallery && <ImageGalleryItem gallery={this.state.gallery}></ImageGalleryItem>}
+    {isImageGallery && <Button onClick={this.loadMore}></Button>}
+   
     </> 
 )
 }}
 
 export default ImageGallery;
 
-/*{gallery.hits.map((item) => (
-    <ImageGalleryItem key={item.id} src={item.webformatURL}></ImageGalleryItem>
-  ))}
-  
-  && <h1>Loading....</h1>*/
