@@ -1,7 +1,14 @@
-const ImageGalleryItem = ({gallery}) => {
-   return ( <ul>
-{gallery.map((item) => (<li key={item.id}>{item.id}</li>))}
-    </ul>)
+import { ImageGallery, Item, Image } from "./ImageGalleryItem.styled";
+
+
+const ImageGalleryItem = ({gallery, openModal}) => {
+    
+   return ( <ImageGallery>
+{gallery.map(({id, largeImageURL, tags, webformatURL }) => (<Item key={id} 
+onClick={() => openModal(largeImageURL, tags)}>
+    <Image src={webformatURL} alt={tags} 
+/></Item>))}
+    </ImageGallery>)
 }
 
 
@@ -9,6 +16,3 @@ const ImageGalleryItem = ({gallery}) => {
 
 export default ImageGalleryItem;
 
-//function probably
-//<img src={item.webformatURL}/>
-//gallery.hits.map((item) => (<li key={item.id}></li>))

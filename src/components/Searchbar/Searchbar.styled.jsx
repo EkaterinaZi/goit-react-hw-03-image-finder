@@ -19,8 +19,7 @@ box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
 
 export const SearchForm = styled.form`display: flex;
 align-items: center;
-width: 100%;
-max-width: 600px;
+width: 70%;
 background-color: #fff;
 border-radius: 3px;
 overflow: hidden;`
@@ -36,5 +35,10 @@ background-position: center;
 opacity: 0.6;
 transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 cursor: pointer;
-outline: none;`
+outline: none;
+&:hover{opacity: 1;}`
+
+export const SearchInput = styled.input `
+width: 90%;
+`
 
