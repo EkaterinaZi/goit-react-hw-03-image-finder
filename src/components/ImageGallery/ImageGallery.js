@@ -74,6 +74,7 @@ closeModal = () => {
   }
 
 render() {
+    const imageGalleryLength = this.state.gallery.length
     const isImageGallery = Boolean(this.state.gallery.length)
     const {urlLarge, tag} = this.state;
 return (  
@@ -81,7 +82,7 @@ return (
     {this.state.loading && <Loader/>}
     {this.state.error && <p>Try again!</p>}
     {isImageGallery && <ImageGalleryItem openModal={this.openModal} gallery={this.state.gallery}></ImageGalleryItem>}
-    {isImageGallery && <Button onClick={this.loadMore}></Button>}
+    {imageGalleryLength >= 12 && <Button onClick={this.loadMore}></Button>}
     {this.state.showModal && <Modal onClose={this.closeModal}>
     <ImageLarge src={urlLarge} alt={tag}/>
     </Modal>}
