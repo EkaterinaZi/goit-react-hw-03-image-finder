@@ -27,13 +27,8 @@ componentDidMount(){
   this.load()
   }
 componentDidUpdate(prevProps, prevState){
-    if (this.state.page > prevState.page) {
-        this.load(this.state.input, this.state.page);
-        return;
-      }
     if (prevState.input !== this.state.input || this.state.page !== prevState.page) {
-        this.load(this.state.input, 1);
-        this.setState({ page: 1 });
+        this.load(this.state.input, this.state.page);
         return;
       }
     }
@@ -60,7 +55,8 @@ componentDidUpdate(prevProps, prevState){
         }))
   }    
 handleformSubmit = input => {
- this.setState({input})
+ this.setState({input: input,
+  page: 1})
 }
 openModal = (largeImageURL, tags) => {
   this.setState({
